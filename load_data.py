@@ -70,18 +70,18 @@ JOIN patients p on s.subject = p.subject
 WHERE p.treatment = 'miraclib' AND p.condition = 'melanoma' AND s.sample_type = 'PBMC'
 """
 df_part3 = pd.read_sql_query(query, connection)
-
-print(df_part3.response.value_counts())
+df_part3.to_sql('miraclib_response_comparison', connection, if_exists='replace', index=False)
+# print(df_part3.response.value_counts())
 
 #plot population relative frequencies
 import seaborn as sns
 import matplotlib.pyplot as plt
 populations = df_part3['population'].unique()
-# sns.boxplot(x='population', y='percentage', hue='response', data=df_part3)
-# plt.title('Population Relative Frequencies by Response to Miraclib Treatment')
-# plt.xlabel('Immune Cell Population')
-# plt.ylabel('Relative Frequency (%)')    
-# plt.show()
+sns.boxplot(x='population', y='percentage', hue='response', data=df_part3)
+plt.title('Population Relative Frequencies by Response to Miraclib Treatment')
+plt.xlabel('Immune Cell Population')
+plt.ylabel('Relative Frequency (%)')    
+plt.show()
 
 '''
 PART 4: Find all melanoma patients at baseline (time_from_treatment = 0), treatment = miraclib, then get # samples from each project, # subjects who respond with yes vs no, and male vs female
@@ -100,7 +100,7 @@ SELECT p.project, COUNT(DISTINCT s.sample) AS num_samples,
     GROUP BY p.project"""
 df_part4 = pd.read_sql_query(query, connection)
 print(df_part4)
-
+df_part4.to_sql('melanoma_baseline_summary', connection, if_exists='replace', index=False)
 
 """ Answer Last Question: Avg # b_cell counts for melanoma males who respond yes, at time = 0, across all treatments and sample types"""
 query = """
@@ -112,3 +112,5 @@ WHERE p.condition = 'melanoma' AND p.sex = 'M' AND p.response = 'yes' AND s.time
 """
 df_avg_b_cell = pd.read_sql_query(query, connection)
 print(df_avg_b_cell)
+
+connection.close()
