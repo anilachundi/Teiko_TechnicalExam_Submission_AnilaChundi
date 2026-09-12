@@ -4,6 +4,7 @@ import pandas as pd
 '''
 PART1: pull data from csv file and load it into a pandas dataframe
 '''
+
 df = pd.read_csv('data/cell-count.csv')
 #print(df.head())
 
@@ -99,7 +100,7 @@ SELECT p.project, COUNT(DISTINCT s.sample) AS num_samples,
     WHERE p.condition = 'melanoma' AND p.treatment = 'miraclib' AND s.time_from_treatment = 0
     GROUP BY p.project"""
 df_part4 = pd.read_sql_query(query, connection)
-print(df_part4)
+# print(df_part4)
 df_part4.to_sql('melanoma_baseline_summary', connection, if_exists='replace', index=False)
 
 """ Answer Last Question: Avg # b_cell counts for melanoma males who respond yes, at time = 0, across all treatments and sample types"""
@@ -111,6 +112,6 @@ JOIN patients p on s.subject = p.subject
 WHERE p.condition = 'melanoma' AND p.sex = 'M' AND p.response = 'yes' AND s.time_from_treatment = 0
 """
 df_avg_b_cell = pd.read_sql_query(query, connection)
-print(df_avg_b_cell)
+# print(df_avg_b_cell)
 
 connection.close()

@@ -42,6 +42,6 @@ with tab2:
 
 
 with tab3:
-    st.header("Statistical Significance: Responders vs Non-Responders")
+    st.header("Understanding early treatment response in melanoma patients")
     results_df = load_table("melanoma_baseline_summary")
     st.dataframe(results_df, use_container_width=True)

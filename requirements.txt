@@ -3,5 +3,4 @@ streamlit
 seaborn
 matplotlib
 scipy
-sqlite3
 
