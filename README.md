@@ -10,4 +10,4 @@
 - `Makefile` - automates the full pipeline
 
 ## Live Dashboard Link
-https://automatic-space-garbanzo-46xv6w7xrxg3jwpq-8501.app.github.dev/
+https://ominous-space-capybara-6wj5w4gjxqw35q9-8501.app.github.dev/
